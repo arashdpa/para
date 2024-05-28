@@ -24,7 +24,7 @@ function translateText() {
   .catch(error => console.error("Error:", error));
 }
 
-function translateToPersian(text) {
+function translateToPersian(inputText) {
   // نمایش ترجمه به کاربر
-  document.getElementById("translatedText").innerText = "ترجمه به فارسی: " + text;
+  document.getElementById("translatedText").innerText = "ترجمه به فارسی: " + inputText;
 }
