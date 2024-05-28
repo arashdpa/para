@@ -1,23 +1,30 @@
+// کلید API خود را وارد کنید
+const apiKey = "AIzaSyCsY3kwvY3XN5GetXP_mtM2vuyMAeSwtN4";
+
 function translateText() {
-    var inputText = document.getElementById("inputText").value;
+  var inputText = document.getElementById("inputText").value;
   
-    // این قسمت می‌تونه با استفاده از سرویس ترجمه اتوماتیک انجام بشه
-    // در اینجا یک مثال ساده از ترجمه متن به انگلیسی و سپس به فارسی ارائه شده است.
-    var translatedText = translateToEnglish(inputText);
-    translatedText = translateToPersian(translatedText);
-  
-    document.getElementById("translatedText").innerText = translatedText;
-  }
-  
-  function translateToEnglish(text) {
-    // مثالی از ترجمه به انگلیسی
-    // این قسمت باید با استفاده از سرویس ترجمه مناسب تغییر داده شود
-    return "Translated to English: " + text;
-  }
-  
-  function translateToPersian(text) {
-    // مثالی از ترجمه به فارسی
-    // این قسمت باید با استفاده از سرویس ترجمه مناسب تغییر داده شود
-    return "ترجمه به فارسی: " + text;
-  }
-  
+  // تابع fetch برای ارسال درخواست به Google Translate API استفاده می‌شود
+  fetch("https://translation.googleapis.com/language/translate/v2?key=" + apiKey, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      q: inputText,
+      source: "fa", // زبان مبدا (فارسی)
+      target: "en" // زبان مقصد (انگلیسی)
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    var translatedText = data.data.translations[0].translatedText;
+    translateToPersian(translatedText);
+  })
+  .catch(error => console.error("Error:", error));
+}
+
+function translateToPersian(text) {
+  // نمایش ترجمه به کاربر
+  document.getElementById("translatedText").innerText = "ترجمه به فارسی: " + text;
+}
