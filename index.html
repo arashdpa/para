@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پارافرایز متن</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    .container {
+        margin-top: 50px;
+    }
+    textarea {
+        width: 80%;
+        height: 100px;
+        margin-bottom: 20px;
+        padding: 10px;
+        resize: none;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    #output {
+        width: 80%;
+        height: 200px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+        overflow-y: auto;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>پارافرایز متن</h2>
+    <textarea id="input" placeholder="متن خود را وارد کنید..."></textarea><br>
+    <button onclick="paraphrase()">پارافرایز کردن</button>
+    <div id="output"></div>
+</div>
+
+<script>
+    function paraphrase() {
+        var inputText = document.getElementById('input').value;
+        fetch('https://api.textparaphraser.io/v1/paraphrase', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': 'your-api-key' // replace 'your-api-key' with your actual API key
+            },
+            body: JSON.stringify({ text: inputText })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('output').innerHTML = data.paraphrased_text;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+</body>
+</html>
