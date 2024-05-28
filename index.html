@@ -3,64 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>پارافرایز متن</title>
+<title>پارافرایز متن فارسی</title>
 <style>
     body {
-        font-family: iransans;
+        font-family: Arial, sans-serif;
         text-align: center;
     }
-    .container {
-        margin-top: 50px;
-    }
-    textarea {
+    #inputText, #outputText {
         width: 80%;
-        height: 100px;
-        margin-bottom: 20px;
+        margin: 20px auto;
         padding: 10px;
-        resize: none;
+        border: 1px solid #ccc;
+        border-radius: 5px;
     }
-    button {
+    #outputText {
+        background-color: #f9f9f9;
+    }
+    #submitBtn {
         padding: 10px 20px;
         background-color: #007bff;
         color: #fff;
         border: none;
+        border-radius: 5px;
         cursor: pointer;
-    }
-    #output {
-        width: 80%;
-        height: 200px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        margin: 0 auto;
-        overflow-y: auto;
     }
 </style>
 </head>
 <body>
-<div class="container">
-    <h2>پارافرایز متن</h2>
-    <textarea id="input" placeholder="متن خود را وارد کنید..."></textarea><br>
-    <button onclick="paraphrase()">پارافرایز کردن</button>
-    <div id="output"></div>
-</div>
+    <h1>پارافرایز متن فارسی</h1>
+    <textarea id="inputText" rows="5" placeholder="متن خود را وارد کنید..."></textarea><br>
+    <button id="submitBtn">پارافرایز کردن</button>
+    <div id="outputText"></div>
 
-<script>
-    function paraphrase() {
-        var inputText = document.getElementById('input').value;
-        fetch('https://api.textparaphraser.io/v1/paraphrase', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': 'your-api-key' // replace 'your-api-key' with your actual API key
-            },
-            body: JSON.stringify({ text: inputText })
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('output').innerHTML = data.paraphrased_text;
-        })
-        .catch(error => console.error('Error:', error));
-    }
-</script>
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            var inputText = document.getElementById('inputText').value;
+            // اینجا می‌توانید از API یا سرویس پردازش متن استفاده کنید
+            // به عنوان یک نمونه ساده، اینجا متن ورودی را به عنوان متن پارافرایز شده نشان می‌دهیم
+            var outputText = inputText.split('').join(' ');
+            document.getElementById('outputText').innerText = outputText;
+        });
+    </script>
 </body>
 </html>
